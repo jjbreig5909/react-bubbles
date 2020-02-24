@@ -7,7 +7,7 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, colorChange }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -26,6 +26,7 @@ const ColorList = ({ colors, updateColors }) => {
     .put(`/colors/${colorToEdit.id}`, colorToEdit)
     .then(res=>{
       console.log(res);
+      colorChange(colors);
     })
     .catch(err=>{
       console.log(err);
@@ -40,6 +41,7 @@ const ColorList = ({ colors, updateColors }) => {
       .then(res => {
         console.log("clicked delete:",res);
         updateColors(colors);
+        colorChange(colors);
       })
       .catch(err => {
         console.log(err);
